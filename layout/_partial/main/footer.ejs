@@ -1,5 +1,6 @@
 <%
 const content = theme.footer.content;
+const miitContent = theme.footer.miitContent;
 function layoutDiv() {
   var el = '';
   el += '<footer class="page-footer reveal fs12">';
@@ -34,7 +35,17 @@ function layoutDiv() {
       });
     }
   }
-  el += '</div></footer>';
+  el += '</div>';
+  el += '<div class="text">';
+  if (miitContent) {
+    if ((typeof content == 'string') && content.constructor == String) {
+      el += '<a href="http://www.miitbeian.gov.cn/">';
+     el += miitContent;
+      el += '</a>';
+    } 
+  }
+  el += '</div>';
+  el += '</footer>';
   return el;
 }
 %>
