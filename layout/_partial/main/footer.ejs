@@ -1,8 +1,6 @@
 <%
-const author = '[@' + config.author + '](' + config.url + config.root + ')';
-const using = '[' + stellar_info('name') + '](' + stellar_info('tree') + ' "v' + stellar_info('version') + '")';
 const source = theme.footer.source;
-const more = theme.footer.more;
+const protocol = theme.footer.protocol;
 
 const showMiit = theme.footer.miit.show;
 const miitUrl = theme.footer.miit.url;
@@ -36,16 +34,22 @@ function layoutDiv() {
     if (theme.footer.license) {
         el += markdown(__('footer.license', theme.footer.license));
     }
-    if (source) {
-        el += markdown(__('footer.info_open_source', author, using, source));
-    } else {
-        el += markdown(__('footer.info_not_open_source', author, using));
+    // 转载协议
+    if (protocol) {
+        if ((typeof protocol == 'string') && protocol.constructor == String) {
+            el += markdown(protocol);
+        } else if ((typeof protocol == 'object') && protocol.constructor == Array) {
+            protocol.forEach((item, i) => {
+                el += markdown(item);
+            });
+        }
     }
-    if (more) {
-        if ((typeof more == 'string') && more.constructor == String) {
-            el += markdown(more);
-        } else if ((typeof more == 'object') && more.constructor == Array) {
-            more.forEach((item, i) => {
+    // 主题来源
+    if (source) {
+        if ((typeof source == 'string') && source.constructor == String) {
+            el += markdown(source);
+        } else if ((typeof source == 'object') && source.constructor == Array) {
+            source.forEach((item, i) => {
                 el += markdown(item);
             });
         }
